@@ -87,10 +87,12 @@ class User extends BaseObject
         $headers = array(
             "X-Parse-Session-Token:".$this->sessionToken
         );
-        $this->removeProperty('sessionToken');
+        $sessionToken = $this->data['sessionToken'];
+        unset($this->data['sessionToken']);
         $url = $this->endPointUrl.'/'.$this->objectId;
         $data = static::_put($url, $this->data, $headers);
         $this->data['updatedAt'] = $data['updatedAt'];
+        $this->data['sessionToken'] = $sessionToken;
     }
 
     /**
