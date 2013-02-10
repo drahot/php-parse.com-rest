@@ -82,14 +82,14 @@ class UserTest extends TestCase
 
     public function testResetPassword()
     {
-        // $user = new User("hotta@digitalize.biz", "12345");
-        // $user->signup();
-        // try {
-        //  $user->login();
-        //  $user->resetPassword("hotta@digitalize.biz");
-        // } catch (\Exception $e) {
-        //  $this->fail("fail delete!");
-        // }
+        $user = new User("higehogehage@hogehage.jp", "12345");
+        $user->signup();
+        try {
+         $user->login();
+         $user->resetPassword("higehogehage@hogehage.jp");
+        } catch (\Exception $e) {
+         $this->fail("fail delete!");
+        }
     }
 
 }
