@@ -13,9 +13,6 @@ SETUP
 <?php
 
 use Parse\Parse;
-use Parse\Object;
-use Parse\Data\Binary;
-use Parse\Data\GeoPoint;
 
 // Initialize 
 Parse::Initialize(
