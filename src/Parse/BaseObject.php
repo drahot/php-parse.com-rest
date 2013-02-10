@@ -401,7 +401,6 @@ abstract class BaseObject extends Resource
         );
     }
 
-
     /**
      * Set Role Access All
      * 
