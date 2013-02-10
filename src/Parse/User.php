@@ -11,6 +11,13 @@ class User extends BaseObject
 {
 
     /**
+     * SessionToken
+     * 
+     * @var string
+     */
+    private $sessionToken;
+
+    /**
      * Constructor
      * 
      * @param string $username 
@@ -73,6 +80,8 @@ class User extends BaseObject
         );
         $url = implode('/', array(static::API_PATH, 'login'));
         $data = static::_get($url, $data);
+        $this->sessionToken = $data['sessionToken'];
+        unset($data['sessionToken']);
         $this->setProperty($data);
     }
 
@@ -87,12 +96,9 @@ class User extends BaseObject
         $headers = array(
             "X-Parse-Session-Token:".$this->sessionToken
         );
-        $sessionToken = $this->data['sessionToken'];
-        unset($this->data['sessionToken']);
         $url = $this->endPointUrl.'/'.$this->objectId;
         $data = static::_put($url, $this->data, $headers);
         $this->data['updatedAt'] = $data['updatedAt'];
-        $this->data['sessionToken'] = $sessionToken;
     }
 
     /**
@@ -127,6 +133,90 @@ class User extends BaseObject
         static::_delete($url, array(), $headers);
         $this->data = array();
         $this->isDeleted = true;
+    }
+    
+    /**
+     * Link Facebook Acccount
+     * 
+     * @param array $authData 
+     * @return void
+     */
+    public function linkFacebookAccount(array $authData)
+    {
+        $this->data['authData'] = array(
+            'facebook' => $authData,
+        );
+        $this->save();
+    }
+
+    /**
+     * Link Twitter Account
+     * 
+     * @param array $authData 
+     * @return void
+     */
+    public function linkTwitterAccount(array $authData)
+    {
+        $this->data['authData'] = array(
+            'twitter' => $authData,
+        );
+        $this->save();
+    }   
+
+    /**
+     * Link Facebook and Twitter Account
+     * 
+     * @param array $facebookAuthData 
+     * @param array $twitterAuthData 
+     * @return void
+     */
+    public function linkAccounts(array $facebookAuthData, array $twitterAuthData)
+    {
+        $this->data['authData'] = array(
+            'facebook' => $facebookAuthData,
+            'twitter' => $twitterAuthData,
+        );
+        $this->save();
+    }
+
+    /**
+     * Unlink Facebook Account
+     * 
+     * @return void
+     */
+    public function unlinkFacebookAccount()
+    {
+        $this->data['authData'] = array(
+            'facebook' => null,
+        );
+        $this->save();
+    }
+
+    /**
+     * Unlink Twitter Account
+     * 
+     * @return void
+     */
+    public function unlinkTwitterAccount()
+    {
+        $this->data['authData'] = array(
+            'twitter' => null,
+        );
+        $this->save();
+    }
+
+    /**
+     * Unlink Facebook And Twitter Accounts
+     * 
+     * @return void
+     */
+    public function unlinkAccounts()
+    {
+        $this->data['authData'] = array(
+            'facebook' => null,
+            'twitter' => null,
+        );
+        $this->save();
     }
 
     /**

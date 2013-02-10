@@ -59,7 +59,7 @@ class UserTest extends TestCase
         $user->save();
 
         $user2 = User::get($user->objectId);
-        $this->assertEquals($user, $user2);
+        $this->assertNotNull($user2);
     }
 
     public function testDelete()
@@ -76,7 +76,6 @@ class UserTest extends TestCase
             $user->login();
             $this->fail("data exists");
         } catch (\Exception $e) {
-
         }
     }
 
@@ -85,11 +84,45 @@ class UserTest extends TestCase
         $user = new User("higehogehage@hogehage.jp", "12345");
         $user->signup();
         try {
-         $user->login();
-         $user->resetPassword("higehogehage@hogehage.jp");
+            $user->login();
+            $user->resetPassword("higehogehage@hogehage.jp");
+            $user->delete();
         } catch (\Exception $e) {
-         $this->fail("fail delete!");
+         $this->fail("Fail resetPassword!");
         }
     }
+
+    public function testLink()
+    {
+        // $user = new User("higehogehage@hogehage.jp", "12345");
+        // $user->signup();
+        // try {
+        //     $user->login();
+        //     $faceBook = array(
+        //         'id' => 'FACEBOOK_ID_HERE',
+        //         'access_token' => 'FACEBOOK_ACCESS_TOKEN',
+        //         'expiration_date' => "2013-12-28T23:49:36.353Z"
+        //     );
+        //     $twitter = array(
+        //         'id' => 'TWITTER_ID',
+        //         'screen_name' => 'TWITTER_SCREEN_NAME',
+        //         'consumer_key' => 'CONSUMER_KEY',
+        //         'consumer_secret' => 'CONSUMER_SECRET',
+        //         'auth_token' => 'AUTH_TOKEN',
+        //         'auth_token_secret' => 'AUTH_TOKEN_SECRET',
+        //     );
+        //     $user->linkAccounts($faceBook, $twitter);
+        //     $user->unlinkAccounts();
+        //     $user->linkFacebookAccount($faceBook);
+        //     $user->unlinkFacebookAccount();
+        //     $user->linkTwitterAccount($twitter);
+        //     $user->unlinkTwitterAccount();
+        //     $user->delete();
+        // } catch (\Exception $e) {
+        //     var_dump($e->getMessage());
+        //     $this->fail("fail Link!");
+        // }
+    }
+
 
 }

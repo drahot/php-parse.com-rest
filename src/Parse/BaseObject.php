@@ -292,6 +292,178 @@ abstract class BaseObject extends Resource
     }
 
     /**
+     * Set Public Access All(Read, Write)
+     * 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setPublicAccessAll($bool = true)
+    {
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            '*' => array(
+                'read' => $bool,
+                'write' => $bool,
+            )
+        );
+    }
+    
+    /**
+     * Set Public Access Read
+     * 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setPublicReadAccess($bool = true)
+    {
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            '*' => array(
+                'read' => $bool,
+            )
+        );        
+    }
+
+    /**
+     * Set Public Access Write
+     * 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setPublicWriteAccess($bool = true)
+    {
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            '*' => array(
+                'write' => $bool,
+            )
+        );        
+    }        
+
+    /**
+     * Set ObjectId Access All
+     * 
+     * @param string $objectId 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setAccessAllForObjectId($objectId, $bool = true)
+    {
+        if (empty($objectId)) {
+            throw new \InvalidArgumentException("$objectId is empty!");
+        }
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            $objectId => array(
+                'read' => $bool,
+                'write' => $bool,
+            )
+        );        
+    }        
+
+    /**
+     * Set ObjectId Access Read
+     * 
+     * @param string $objectId 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setAccessReadForObjectId($objectId, $bool = true)
+    {
+        if (empty($objectId)) {
+            throw new \InvalidArgumentException("$objectId is empty!");
+        }
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            $objectId => array(
+                'read' => $bool,
+            ),
+        );
+    }
+
+    /**
+     * Set ObjectId Access Write
+     * 
+     * @param string $objectId 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setAccessWriteForObjectId($objectId, $bool = true)
+    {
+        if (empty($objectId)) {
+            throw new \InvalidArgumentException("$objectId is empty!");
+        }
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            $objectId => array(
+                'write' => $bool,
+            )
+        );
+    }
+
+
+    /**
+     * Set Role Access All
+     * 
+     * @param string $role 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setAccessAllForRole($role, $bool = true)
+    {
+        if (empty($role)) {
+            throw new \InvalidArgumentException("$role is empty!");
+        }
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            'role:'.$role => array(
+                'read' => $bool,
+                'write' => $bool,
+            )
+        );        
+    }        
+
+    /**
+     * Set Role Access Read
+     * 
+     * @param string $role 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setAccessReadForRole($role, $bool = true)
+    {
+        if (empty($role)) {
+            throw new \InvalidArgumentException("$role is empty!");
+        }
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            'role:'.$role => array(
+                'read' => $bool,
+            ),
+        );
+    }
+
+    /**
+     * Set Role Access Write
+     * 
+     * @param string $role 
+     * @param bool $bool 
+     * @return void
+     */
+    public function setAccessWriteForRole($role, $bool = true)
+    {
+        if (empty($role)) {
+            throw new \InvalidArgumentException("$role is empty!");
+        }
+        $bool = (bool) $bool;
+        $this->data['ACL'] = array(
+            'role:'.$role => array(
+                'write' => $bool,
+            )
+        );
+    }
+
+    /**
      * Get Attributes
      * 
      * @return array

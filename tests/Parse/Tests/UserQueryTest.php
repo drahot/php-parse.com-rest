@@ -11,8 +11,9 @@ class UserQueryTest extends TestCase
     private $user;
     private $user2;
 
-    public function setup()
+    public function setUp()
     {
+        parent::setup();
         $this->user = new User("okamoto@test_hoge.jp", "12345");
         $this->user->signup();
         $this->user->login();

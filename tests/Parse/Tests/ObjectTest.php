@@ -3,6 +3,7 @@
 namespace Parse\Tests;
 
 use Parse\Object;
+use Parse\User;
 use Parse\Data\Binary;
 use Parse\Data\GeoPoint;
 
@@ -117,6 +118,31 @@ class ObjectTest extends TestCase
         $comment2 = Object::get("Comment", $comment->objectId);
         $this->assertEquals($comment2->parent->objectId, $post->objectId);
         $this->assertEquals($comment2->parent->title, "I'm lonely");
+    }
+
+    public function testACL()
+    {
+        $user = new User("hogehageeee@test_hoge.jp", "12345");
+        $user->signup();
+        $user->login();
+        $test = new Object("Test");
+        $test->title = "I'm test!";
+        $test->content = "It is Content";
+        $test->setAccessAllForObjectId($user->objectId);
+        $test->save();
+        $user->delete();
+
+        $test2 = new Object("Test");
+        $test2->title = "I'm test2!";
+        $test2->content = "It is Content2";
+        $test2->setPublicAccessAll();
+        $test2->save();
+
+        $test2 = new Object("Test");
+        $test2->title = "I'm test3!";
+        $test2->content = "It is Content3";
+        $test2->setAccessAllForRole("testRole");
+        $test2->save();
     }
 
 }
