@@ -4,9 +4,9 @@
 	"homepage": "https://github.com/drahot/php-parser.com-rest",
 	"license": "MIT",
 	"authors": [
-		{
-			"name": "Tatsuya Hotta"
-		}
+	{
+		"name": "Tatsuya Hotta"
+	}
 	],
 	"minimum-stability": "dev",
 	"require": {
@@ -16,8 +16,8 @@
 		"phpunit/phpunit": "~3.7.0"
 	},
 	"autoload": {
-        "psr-0": {
-        	"Parse": "src/"
-        }
-    }
+		"psr-0": {
+			"Parse": "src/"
+		}
+	}
 }
